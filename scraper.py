@@ -5,10 +5,12 @@ import requests
 def find_price(arg):
     symbol = arg.upper()
 
+    # Uses the stock's ticker symbol to create a URL and sends a request to that URL to parse it
     url = f"https://finance.yahoo.com/quote/{symbol}?p={symbol}&.tsrc=fin-srch"
     result = requests.get(url).text
     page = BeautifulSoup(result, "html.parser")
 
+    # Locates the price of the stock by finding this HTML class which contains the price
     price_class = page.find(class_="Fw(b) Fz(36px) Mb(-4px) D(ib)")
     price = price_class["value"]
     
@@ -20,10 +22,12 @@ def find_gainers():
     result = requests.get(url).text
     page = BeautifulSoup(result, "html.parser")
 
+    # Finds the contents of the table that contains the list of gaining stocks
     tbody = page.tbody
     trs = tbody.contents
     gainers = []
     
+    # Loops through the first 10 rows in the table and finds the name, ticker symbol, and percent change for each stock
     for tr in trs[:10]:
         name = tr.contents[1].contents[0]
         symbol = tr.contents[0].find("a").contents[0]
@@ -39,10 +43,12 @@ def find_losers():
     result = requests.get(url).text
     page = BeautifulSoup(result, "html.parser")
 
+    # Finds the contents of the table that contains the list of losing stocks
     tbody = page.tbody
     trs = tbody.contents
     losers = []
 
+    # Loops through the first 10 rows in the table and finds the name, ticker symbol, and percent change for each stock
     for tr in trs[:10]:
         name = tr.contents[1].contents[0]
         symbol = tr.contents[0].find("a").contents[0]
