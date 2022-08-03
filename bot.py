@@ -62,5 +62,3 @@ async def view(ctx, arg):
 
     else:
         pass
-
-client.run("MTAwMjY4OTcyMzI0NjA3MTgyOA.GUMLld.oOSGkzV3p3El0UiPJKNnG0NUBfMOUdPxQHLPH8")
